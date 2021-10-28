@@ -25,7 +25,6 @@ export class CompanyController {
       newCompany.name = company.name;
 
       await connection.manager.save(newCompany);
-      console.log('New company has been created !!');
 
       return `Created company \nName : ${company.name}\nActive Employees : ${company.activeEmployees}`;
    }
