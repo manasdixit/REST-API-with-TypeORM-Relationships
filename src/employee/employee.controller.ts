@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Employee } from './interface/employee.interface';
+import { I_Employee } from './interface/employee.interface';
 
 @Controller('employee')
 export class EmployeeController {
@@ -14,7 +14,7 @@ export class EmployeeController {
    }
 
    @Post()
-   createEmployee(@Body() employee: Employee) {
+   createEmployee(@Body() employee: I_Employee) {
       return `Create an Employee \nName : ${employee.name}\nEmployee ID : ${employee.employeeId}`;
    }
 

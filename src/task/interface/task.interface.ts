@@ -1,4 +1,4 @@
-export interface Task {
+export interface I_Task {
    taskId: number;
    name: string;
    deadline: Date;

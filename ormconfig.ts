@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 
 const typeOrmConfig: MysqlConnectionOptions = {
+   name: 'connection-1',
    type: 'mysql',
    host: 'localhost',
    port: 3306,
@@ -13,14 +14,12 @@ const typeOrmConfig: MysqlConnectionOptions = {
    database: 'learn-nest',
    entities: [Employee, Company, Task],
    synchronize: true,
+
+   // synchronize: false,
 };
 
-createConnection(typeOrmConfig)
-   .then((connection) => {
-      console.log('Connection to MySQL successful !!');
-   })
-   .catch((err) => {
-      throw new Error(err);
-   });
+createConnection(typeOrmConfig).then(async (connection) => {
+   console.log('MySQL Database conneted...');
+});
 
 export default typeOrmConfig;

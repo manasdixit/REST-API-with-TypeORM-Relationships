@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Task } from './interface/task.interface';
+import { I_Task } from './interface/task.interface';
 
 @Controller('task')
 export class TaskController {
@@ -14,7 +14,7 @@ export class TaskController {
    }
 
    @Post()
-   createTask(@Body() task: Task) {
+   createTask(@Body() task: I_Task) {
       return `Create a Task \nName : ${task.name}\nActive Employees : ${task.taskId}`;
    }
 
