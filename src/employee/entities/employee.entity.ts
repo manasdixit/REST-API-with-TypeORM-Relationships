@@ -1,5 +1,14 @@
 import { Company } from 'src/company/entities/company.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Task } from 'src/task/entities/task.entity';
+import {
+   Column,
+   Entity,
+   JoinColumn,
+   ManyToOne,
+   OneToMany,
+   PrimaryColumn,
+   PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Employee {
@@ -20,4 +29,7 @@ export class Employee {
 
    @ManyToOne((type) => Company, (company) => company.employees)
    company: Company;
+
+   @OneToMany((type) => Task, (task) => task.employees)
+   tasks: Task[];
 }

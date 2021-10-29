@@ -8,7 +8,7 @@ const connection = getConnection('connection-1');
 export class TaskController {
    @Get()
    getTasks() {
-      return connection.manager.find(Task);
+      return connection.manager.find(Task, { relations: ['employees'] });
    }
 
    @Get(':id')
@@ -18,14 +18,20 @@ export class TaskController {
 
    @Post()
    async createTask(@Body() task: I_Task) {
-      let newTask = new Task();
-
-      newTask.name = task.name;
-      newTask.assignedDate = task.assignedDate;
-      newTask.deadline = task.deadline;
-      newTask.isCompleted = task.isComplete;
-
-      return await connection.manager.save(newTask);
+      await connection
+         .createQueryBuilder()
+         .insert()
+         .into(Task)
+         .values([
+            {
+               name: task.name,
+               assignedDate: task.assignedDate,
+               deadline: task.deadline,
+               isComplete: task.isComplete,
+            },
+         ])
+         .execute();
+      return `Task created.. \nName : ${task.name}\nDeadline : ${task.deadline}`;
    }
 
    @Delete(':id')

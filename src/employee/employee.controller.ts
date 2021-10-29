@@ -9,7 +9,7 @@ const connection = getConnection('connection-1');
 export class EmployeeController {
    @Get()
    async getEmployees() {
-      return await connection.manager.find(Employee);
+      return await connection.manager.find(Employee, { relations: ['tasks'] });
    }
 
    @Get(':id')
@@ -19,12 +19,6 @@ export class EmployeeController {
 
    @Post()
    async createEmployee(@Body() employee: I_Employee) {
-      // let newEmployee = new Employee();
-      // newEmployee.name = employee.name;
-      // newEmployee.address = employee.address;
-      // newEmployee.dob = employee.dob;
-      // newEmployee.sex = employee.sex;
-
       await connection
          .createQueryBuilder()
          .insert()

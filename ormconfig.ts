@@ -14,8 +14,6 @@ const typeOrmConfig: MysqlConnectionOptions = {
    database: 'learn-nest',
    entities: [Employee, Company, Task],
    synchronize: true,
-
-   // synchronize: false,
 };
 
 createConnection(typeOrmConfig).then(async (connection) => {

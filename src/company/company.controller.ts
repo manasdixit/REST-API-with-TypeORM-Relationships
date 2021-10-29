@@ -7,7 +7,9 @@ import { I_Company } from './interface/company.interface';
 export class CompanyController {
    @Get()
    getCompanies() {
-      return getConnection('connection-1').manager.find(Company);
+      return getConnection('connection-1').manager.find(Company, {
+         relations: ['employees'],
+      });
    }
 
    @Get(':id')
@@ -18,13 +20,6 @@ export class CompanyController {
    @Post()
    async createCompany(@Body() company: I_Company) {
       const connection = getConnection('connection-1');
-
-      // let newCompany = new Company();
-
-      // newCompany.activeEmployees = company.activeEmployees;
-      // newCompany.name = company.name;
-
-      // await connection.manager.save(newCompany);
 
       await connection
          .createQueryBuilder()

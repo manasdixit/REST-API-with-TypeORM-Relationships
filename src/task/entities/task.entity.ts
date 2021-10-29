@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Employee } from 'src/employee/entities/employee.entity';
+import {
+   Column,
+   Entity,
+   ManyToMany,
+   ManyToOne,
+   PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Task {
@@ -17,5 +24,8 @@ export class Task {
    @Column({
       default: false,
    })
-   isCompleted: Boolean;
+   isComplete: Boolean;
+
+   @ManyToOne((type) => Employee, (employee) => employee.tasks)
+   employees: Employee[];
 }
