@@ -1,10 +1,10 @@
 {
   "name": "learn-nest",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Learning Nest Framework by creating REST API's",
+  "author": "Manas Dixit",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
