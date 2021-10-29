@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { Company } from 'src/company/entities/company.entity';
 import {
    Column,
@@ -25,4 +26,7 @@ export class Employee {
 
    @Column()
    address: string;
+
+   @ManyToOne((type) => Company, (company) => company.employees)
+   company: Company;
 }

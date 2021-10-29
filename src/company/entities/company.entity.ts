@@ -17,4 +17,7 @@ export class Company {
 
    @Column()
    activeEmployees: number;
+
+   @OneToMany((type) => Employee, (employee) => employee.id)
+   employees: Employee[];
 }
