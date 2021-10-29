@@ -19,20 +19,27 @@ export class CompanyController {
    async createCompany(@Body() company: I_Company) {
       const connection = getConnection('connection-1');
 
-      let newCompany = new Company();
+      // let newCompany = new Company();
 
-      newCompany.activeEmployees = company.activeEmployees;
-      newCompany.name = company.name;
+      // newCompany.activeEmployees = company.activeEmployees;
+      // newCompany.name = company.name;
 
-      await connection.manager.save(newCompany);
+      // await connection.manager.save(newCompany);
+
+      await connection
+         .createQueryBuilder()
+         .insert()
+         .into(Company)
+         .values([
+            { name: company.name, activeEmployees: company.activeEmployees },
+         ])
+         .execute();
 
       return `Created company \nName : ${company.name}\nActive Employees : ${company.activeEmployees}`;
    }
 
    @Delete(':id')
    deleteCompany(@Param('id') id) {
-      return getConnection('connection-1').manager.delete(Company, {
-         companyId: id,
-      });
+      return getConnection('connection-1').manager.delete(Company, { id });
    }
 }

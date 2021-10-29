@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Company } from 'src/company/entities/company.entity';
 import { getConnection } from 'typeorm';
 import { Employee } from './entities/employee.entity';
 import { I_Employee } from './interface/employee.interface';
@@ -18,19 +19,31 @@ export class EmployeeController {
 
    @Post()
    async createEmployee(@Body() employee: I_Employee) {
-      let newEmployee = new Employee();
-      newEmployee.name = employee.name;
-      newEmployee.employeeId = employee.employeeId;
-      newEmployee.address = employee.address;
-      newEmployee.dob = employee.dob;
-      newEmployee.sex = employee.sex;
+      // let newEmployee = new Employee();
+      // newEmployee.name = employee.name;
+      // newEmployee.address = employee.address;
+      // newEmployee.dob = employee.dob;
+      // newEmployee.sex = employee.sex;
 
-      await connection.manager.save(newEmployee);
-      return `Created Employee: \nName : ${newEmployee.name}\nEmployee ID : ${newEmployee.employeeId}`;
+      await connection
+         .createQueryBuilder()
+         .insert()
+         .into(Employee)
+         .values([
+            {
+               name: employee.name,
+               address: employee.address,
+               dob: employee.dob,
+               sex: employee.sex,
+            },
+         ])
+         .execute();
+
+      return `Created employee \nName : ${employee.name}\nDOB : ${employee.dob}`;
    }
 
    @Delete(':id')
    async deleteCompany(@Param('id') id) {
-      return await connection.manager.delete(Employee, { employeeId: id });
+      return await connection.manager.delete(Employee, { id });
    }
 }

@@ -1,5 +1,5 @@
 export interface I_Task {
-   taskId: number;
+   id: number;
    name: string;
    deadline: Date;
    assignedDate: Date;

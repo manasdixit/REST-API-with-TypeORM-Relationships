@@ -17,22 +17,19 @@ export class TaskController {
    }
 
    @Post()
-   createTask(@Body() task: I_Task) {
+   async createTask(@Body() task: I_Task) {
       let newTask = new Task();
 
       newTask.name = task.name;
-      newTask.taskId = task.taskId;
       newTask.assignedDate = task.assignedDate;
       newTask.deadline = task.deadline;
       newTask.isCompleted = task.isComplete;
 
-      connection.manager.save(newTask);
-
-      return `Created Task :  \nName : ${newTask.name}\nTask ID : ${newTask.taskId}`;
+      return await connection.manager.save(newTask);
    }
 
    @Delete(':id')
    deleteTask(@Param('id') id) {
-      return connection.manager.delete(Task, { taskId: id });
+      return connection.manager.delete(Task, { id });
    }
 }

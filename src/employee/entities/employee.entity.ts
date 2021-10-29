@@ -1,9 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Company } from 'src/company/entities/company.entity';
+import {
+   Column,
+   Entity,
+   JoinColumn,
+   ManyToMany,
+   ManyToOne,
+   OneToOne,
+   PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Employee {
    @PrimaryGeneratedColumn()
-   employeeId: number;
+   id: number;
 
    @Column()
    name: string;

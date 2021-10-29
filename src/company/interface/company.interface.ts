@@ -1,5 +1,5 @@
 export interface I_Company {
-   companyId: number;
+   id: number;
    name: string;
    activeEmployees: number;
 }
