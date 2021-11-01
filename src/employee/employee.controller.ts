@@ -4,7 +4,7 @@ import { getConnection } from 'typeorm';
 import { Employee } from './entities/employee.entity';
 import { I_Employee } from './interface/employee.interface';
 
-const connection = getConnection('connection-1');
+const connection = getConnection('default');
 @Controller('employee')
 export class EmployeeController {
    @Get()

@@ -7,19 +7,19 @@ import { I_Company } from './interface/company.interface';
 export class CompanyController {
    @Get()
    getCompanies() {
-      return getConnection('connection-1').manager.find(Company, {
+      return getConnection('default').manager.find(Company, {
          relations: ['employees'],
       });
    }
 
    @Get(':id')
    getCompany(@Param('id') id) {
-      return getConnection('connection-1').manager.findByIds(Company, id);
+      return getConnection('default').manager.findByIds(Company, id);
    }
 
    @Post()
    async createCompany(@Body() company: I_Company) {
-      const connection = getConnection('connection-1');
+      const connection = getConnection('default');
 
       await connection
          .createQueryBuilder()
@@ -35,6 +35,6 @@ export class CompanyController {
 
    @Delete(':id')
    deleteCompany(@Param('id') id) {
-      return getConnection('connection-1').manager.delete(Company, { id });
+      return getConnection('default').manager.delete(Company, { id });
    }
 }

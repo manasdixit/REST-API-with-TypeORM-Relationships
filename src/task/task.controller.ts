@@ -3,7 +3,7 @@ import { getConnection } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { I_Task } from './interface/task.interface';
 
-const connection = getConnection('connection-1');
+const connection = getConnection('default');
 @Controller('task')
 export class TaskController {
    @Get()

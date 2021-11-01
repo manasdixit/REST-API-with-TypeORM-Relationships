@@ -5,7 +5,6 @@ import { createConnection } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 
 const typeOrmConfig: MysqlConnectionOptions = {
-   name: 'connection-1',
    type: 'mysql',
    host: 'localhost',
    port: 3306,
