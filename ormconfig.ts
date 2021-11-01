@@ -11,7 +11,7 @@ const typeOrmConfig: MysqlConnectionOptions = {
    port: 3306,
    username: 'root',
    password: 'manasdb',
-   database: 'learn-nest',
+   database: 'db',
    entities: [Employee, Company, Task],
    synchronize: true,
 };
