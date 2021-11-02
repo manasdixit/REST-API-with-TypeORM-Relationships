@@ -1,5 +1,5 @@
-import { Company } from 'src/company/entities/company.entity';
-import { Task } from 'src/task/entities/task.entity';
+import { Company } from 'src/entities/company.entity';
+import { Task } from 'src/entities/task.entity';
 import {
    Column,
    Entity,

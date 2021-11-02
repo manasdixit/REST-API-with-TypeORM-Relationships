@@ -1,12 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Company } from 'src/company/entities/company.entity';
+import { Company } from 'src/entities/company.entity';
+import { Employee } from 'src/entities/employee.entity';
 import { getConnection } from 'typeorm';
-import { Employee } from './entities/employee.entity';
-import { I_Employee } from './interface/employee.interface';
 
+import { I_Employee } from '../interfaces/employee.interface';
+import { EmployeeService } from './employee.service';
 const connection = getConnection('default');
 @Controller('employee')
 export class EmployeeController {
+   constructor(private readonly employeeService: EmployeeService) {}
+
    @Get()
    async getEmployees() {
       return await connection.manager.find(Employee, { relations: ['tasks'] });

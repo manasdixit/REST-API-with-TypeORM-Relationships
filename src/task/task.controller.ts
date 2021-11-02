@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { getConnection } from 'typeorm';
-import { Task } from './entities/task.entity';
-import { I_Task } from './interface/task.interface';
+import { Task } from '../entities/task.entity';
+import { I_Task } from '../interfaces/task.interface';
 
 const connection = getConnection('default');
 @Controller('task')

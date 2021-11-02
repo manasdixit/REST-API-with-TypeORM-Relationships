@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { CompanyController } from './company/company.controller';
 import { EmployeeController } from './employee/employee.controller';
 import { TaskController } from './task/task.controller';
+import { CompanyService } from './company/company.service';
+import { EmployeeService } from './employee/employee.service';
 
 @Module({
    imports: [TypeOrmModule.forRoot(typeOrmConfig)],
@@ -14,6 +16,6 @@ import { TaskController } from './task/task.controller';
       EmployeeController,
       TaskController,
    ],
-   providers: [],
+   providers: [CompanyService, EmployeeService],
 })
 export class AppModule {}

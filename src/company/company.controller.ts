@@ -1,40 +1,31 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { getConnection } from 'typeorm';
-import { Company } from './entities/company.entity';
-import { I_Company } from './interface/company.interface';
+import { I_Company } from '../interfaces/company.interface';
+import { CompanyService } from './company.service';
 
 @Controller('company')
 export class CompanyController {
+   constructor(private readonly companyService: CompanyService) {}
    @Get()
-   getCompanies() {
-      return getConnection('default').manager.find(Company, {
-         relations: ['employees'],
-      });
+   async getCompanies() {
+      return await this.companyService.findAll();
    }
 
    @Get(':id')
    getCompany(@Param('id') id) {
-      return getConnection('default').manager.findByIds(Company, id);
+      return this.companyService.findOne(id);
    }
 
    @Post()
    async createCompany(@Body() company: I_Company) {
-      const connection = getConnection('default');
-
-      await connection
-         .createQueryBuilder()
-         .insert()
-         .into(Company)
-         .values([
-            { name: company.name, activeEmployees: company.activeEmployees },
-         ])
-         .execute();
-
-      return `Created company \nName : ${company.name}\nActive Employees : ${company.activeEmployees}`;
+      if (await this.companyService.createCompany(company)) {
+         return `Created company \nName : ${company.name}\nActive Employees : ${company.activeEmployees}`;
+      } else {
+         return 'Something went wrong !! Company faied to be created...';
+      }
    }
 
    @Delete(':id')
    deleteCompany(@Param('id') id) {
-      return getConnection('default').manager.delete(Company, { id });
+      return this.companyService.delete(id);
    }
 }
