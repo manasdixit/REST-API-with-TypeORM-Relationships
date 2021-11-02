@@ -1,10 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { getConnection } from 'typeorm';
-import { Task } from '../entities/task.entity';
 import { I_Task } from '../interfaces/task.interface';
 import { TaskService } from './task.service';
 
-const connection = getConnection('default');
 @Controller('task')
 export class TaskController {
    constructor(private readonly taskService: TaskService) {}

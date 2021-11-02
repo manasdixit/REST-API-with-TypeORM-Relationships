@@ -3,10 +3,8 @@ import { Task } from 'src/entities/task.entity';
 import {
    Column,
    Entity,
-   JoinColumn,
    ManyToOne,
    OneToMany,
-   PrimaryColumn,
    PrimaryGeneratedColumn,
 } from 'typeorm';
 

@@ -29,6 +29,7 @@ export class EmployeeService {
                address: body.address,
                dob: body.dob,
                sex: body.sex,
+               company: body.company,
             },
          ])
          .execute();

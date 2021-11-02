@@ -27,6 +27,7 @@ export class TaskService {
                assignedDate: body.assignedDate,
                deadline: body.deadline,
                isComplete: body.isComplete,
+               employees: body.employees,
             },
          ])
          .execute();
