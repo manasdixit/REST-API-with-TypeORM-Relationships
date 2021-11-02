@@ -1,46 +1,31 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Company } from 'src/entities/company.entity';
-import { Employee } from 'src/entities/employee.entity';
-import { getConnection } from 'typeorm';
-
 import { I_Employee } from '../interfaces/employee.interface';
 import { EmployeeService } from './employee.service';
-const connection = getConnection('default');
 @Controller('employee')
 export class EmployeeController {
    constructor(private readonly employeeService: EmployeeService) {}
 
    @Get()
-   async getEmployees() {
-      return await connection.manager.find(Employee, { relations: ['tasks'] });
+   getEmployees() {
+      return this.employeeService.getAll();
    }
 
    @Get(':id')
-   async getEmployee(@Param('id') id) {
-      return await connection.manager.findByIds(Employee, id);
+   getEmployee(@Param('id') id) {
+      return this.employeeService.getOne(id);
    }
 
    @Post()
-   async createEmployee(@Body() employee: I_Employee) {
-      await connection
-         .createQueryBuilder()
-         .insert()
-         .into(Employee)
-         .values([
-            {
-               name: employee.name,
-               address: employee.address,
-               dob: employee.dob,
-               sex: employee.sex,
-            },
-         ])
-         .execute();
-
-      return `Created employee \nName : ${employee.name}\nDOB : ${employee.dob}`;
+   createEmployee(@Body() employee: I_Employee) {
+      if (this.employeeService.createEmployee(employee)) {
+         return `Created employee \nName : ${employee.name}\nDOB : ${employee.dob}`;
+      } else {
+         return 'Something went wrong !! Cannot create new Employee';
+      }
    }
 
    @Delete(':id')
-   async deleteCompany(@Param('id') id) {
-      return await connection.manager.delete(Employee, { id });
+   deleteCompany(@Param('id') id) {
+      return this.employeeService.deleteEmployee(id);
    }
 }

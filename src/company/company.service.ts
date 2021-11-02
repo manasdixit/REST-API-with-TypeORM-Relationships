@@ -13,7 +13,9 @@ export class CompanyService {
    }
 
    async findOne(id) {
-      return await this.connection.manager.findByIds(Company, id);
+      return await this.connection.manager.findByIds(Company, id, {
+         relations: ['employees'],
+      });
    }
 
    async createCompany(company) {
