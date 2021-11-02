@@ -2,40 +2,34 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { getConnection } from 'typeorm';
 import { Task } from '../entities/task.entity';
 import { I_Task } from '../interfaces/task.interface';
+import { TaskService } from './task.service';
 
 const connection = getConnection('default');
 @Controller('task')
 export class TaskController {
+   constructor(private readonly taskService: TaskService) {}
+
    @Get()
    getTasks() {
-      return connection.manager.find(Task, { relations: ['employees'] });
+      return this.taskService.getAll();
    }
 
    @Get(':id')
    getTask(@Param('id') id) {
-      return connection.manager.findByIds(Task, id);
+      return this.taskService.getOne(id);
    }
 
    @Post()
    async createTask(@Body() task: I_Task) {
-      await connection
-         .createQueryBuilder()
-         .insert()
-         .into(Task)
-         .values([
-            {
-               name: task.name,
-               assignedDate: task.assignedDate,
-               deadline: task.deadline,
-               isComplete: task.isComplete,
-            },
-         ])
-         .execute();
-      return `Task created.. \nName : ${task.name}\nDeadline : ${task.deadline}`;
+      if (this.taskService.createTask(task)) {
+         return `Task created.. \nName : ${task.name}\nDeadline : ${task.deadline}`;
+      } else {
+         return 'Something went wrong !! Unable to create new task...';
+      }
    }
 
    @Delete(':id')
    deleteTask(@Param('id') id) {
-      return connection.manager.delete(Task, { id });
+      return this.taskService.deleteTask(id);
    }
 }
