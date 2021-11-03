@@ -1,22 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { Employee } from 'src/entities/employee.entity';
 import { getConnection } from 'typeorm';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
 
 @Injectable()
 export class EmployeeService {
    private readonly connection = getConnection('default');
 
    async getAll() {
-      return await this.connection.manager.find(Employee, {
+      const employees = await this.connection.manager.find(Employee, {
          relations: ['tasks'],
       });
+      return employees;
    }
 
    async getOne(id: any) {
-      return await this.connection.manager.findByIds(Employee, id, {
+      const employee = await this.connection.manager.findByIds(Employee, id, {
          relations: ['tasks'],
       });
+      return employee;
    }
 
    async createEmployee(body) {

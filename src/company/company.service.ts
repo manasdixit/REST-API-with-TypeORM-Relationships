@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Company } from 'src/entities/company.entity';
-import { getConnection, getRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 import { CreateCompanyDto } from './dto/create-company.dto';
 
 @Injectable()
@@ -10,19 +10,26 @@ export class CompanyService {
    // private readonly companyRepository = this.connection.getRepository(Company);
 
    async findAll() {
-      return await this.connection.manager.find(Company, {
+      const companies = await this.connection.manager.find(Company, {
          relations: ['employees'],
       });
+
+      if (!companies) {
+         throw new NotFoundException();
+      }
+      return companies;
    }
 
    async findOne(id: any) {
-      return await this.connection.manager.findByIds(Company, id, {
+      const company = await this.connection.manager.findByIds(Company, id, {
          relations: ['employees'],
       });
+
+      return company;
    }
 
    async createCompany(company: CreateCompanyDto) {
-      return this.connection
+      const newCompany = await this.connection
          .createQueryBuilder()
          .insert()
          .into(Company)
@@ -33,6 +40,8 @@ export class CompanyService {
             },
          ])
          .execute();
+
+      return newCompany;
    }
 
    async delete(id: any) {

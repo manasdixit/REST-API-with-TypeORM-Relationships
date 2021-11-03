@@ -1,10 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import {
-   ApiCreatedResponse,
-   ApiOkResponse,
-   ApiQuery,
-   ApiTags,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Company } from 'src/entities/company.entity';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
