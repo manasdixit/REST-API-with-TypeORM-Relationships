@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { I_Company } from '../interfaces/company.interface';
 import { CompanyService } from './company.service';
+import { CreateCompanyDto } from './dto/create-company.dto';
 
 @ApiTags('COMPANY')
 @Controller('company')
@@ -18,7 +18,7 @@ export class CompanyController {
    }
 
    @Post()
-   async createCompany(@Body() company: I_Company) {
+   async createCompany(@Body() company: CreateCompanyDto) {
       if (await this.companyService.createCompany(company)) {
          return `Created company \nName : ${company.name}\nActive Employees : ${company.activeEmployees}`;
       } else {

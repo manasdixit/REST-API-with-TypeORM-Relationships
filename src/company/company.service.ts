@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Company } from 'src/entities/company.entity';
 import { getConnection, getRepository } from 'typeorm';
+import { CreateCompanyDto } from './dto/create-company.dto';
 
 @Injectable()
 export class CompanyService {
@@ -14,13 +15,13 @@ export class CompanyService {
       });
    }
 
-   async findOne(id) {
+   async findOne(id: any) {
       return await this.connection.manager.findByIds(Company, id, {
          relations: ['employees'],
       });
    }
 
-   async createCompany(company) {
+   async createCompany(company: CreateCompanyDto) {
       return this.connection
          .createQueryBuilder()
          .insert()
@@ -34,7 +35,7 @@ export class CompanyService {
          .execute();
    }
 
-   async delete(id) {
+   async delete(id: any) {
       return this.connection.manager.delete(Company, id);
    }
 }

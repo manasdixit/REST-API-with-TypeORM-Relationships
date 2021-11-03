@@ -1,4 +1,4 @@
-export interface I_Task {
+export class CreateTaskDto {
    id: number;
    name: string;
    deadline: Date;

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { I_Task } from '../interfaces/task.interface';
+import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskService } from './task.service';
 
 @ApiTags('TASK')
@@ -14,12 +14,12 @@ export class TaskController {
    }
 
    @Get(':id')
-   getTask(@Param('id') id) {
+   getTask(@Param('id') id: string) {
       return this.taskService.getOne(id);
    }
 
    @Post()
-   async createTask(@Body() task: I_Task) {
+   async createTask(@Body() task: CreateTaskDto) {
       if (this.taskService.createTask(task)) {
          return `Task created.. \nName : ${task.name}\nDeadline : ${task.deadline}`;
       } else {
@@ -28,7 +28,7 @@ export class TaskController {
    }
 
    @Delete(':id')
-   deleteTask(@Param('id') id) {
+   deleteTask(@Param('id') id: string) {
       return this.taskService.deleteTask(id);
    }
 }

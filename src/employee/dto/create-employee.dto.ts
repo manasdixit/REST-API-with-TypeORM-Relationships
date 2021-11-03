@@ -1,4 +1,4 @@
-export interface I_Employee {
+export class CreateEmployeeDto {
    id: number;
    name: string;
    dob: Date;

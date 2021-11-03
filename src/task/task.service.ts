@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Task } from 'src/entities/task.entity';
 import { getConnection } from 'typeorm';
+import { CreateTaskDto } from './dto/create-task.dto';
 // Creating branches
 
 @Injectable()
@@ -17,9 +18,11 @@ export class TaskService {
       }
    }
 
-   async getOne(id) {
+   async getOne(id: any) {
       try {
-         return await this.connection.manager.findByIds(Task, id);
+         return await this.connection.manager.findByIds(Task, id, {
+            relations: ['employees'],
+         });
       } catch (error) {
          throw new Error(error);
       }
@@ -46,7 +49,7 @@ export class TaskService {
       }
    }
 
-   async deleteTask(id) {
+   async deleteTask(id: any) {
       try {
          return this.connection.manager.delete(Task, { id });
       } catch (error) {

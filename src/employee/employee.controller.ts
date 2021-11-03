@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { I_Employee } from '../interfaces/employee.interface';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { EmployeeService } from './employee.service';
 
 @ApiTags('EMPLOYEE')
@@ -14,12 +14,12 @@ export class EmployeeController {
    }
 
    @Get(':id')
-   getEmployee(@Param('id') id) {
+   getEmployee(@Param('id') id: string) {
       return this.employeeService.getOne(id);
    }
 
    @Post()
-   createEmployee(@Body() employee: I_Employee) {
+   createEmployee(@Body() employee: CreateEmployeeDto) {
       if (this.employeeService.createEmployee(employee)) {
          return `Created employee \nName : ${employee.name}\nDOB : ${employee.dob}`;
       } else {
@@ -28,7 +28,7 @@ export class EmployeeController {
    }
 
    @Delete(':id')
-   deleteCompany(@Param('id') id) {
+   deleteCompany(@Param('id') id: string) {
       return this.employeeService.deleteEmployee(id);
    }
 }

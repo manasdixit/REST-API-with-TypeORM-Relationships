@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Employee } from 'src/entities/employee.entity';
 import { getConnection } from 'typeorm';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
 
 @Injectable()
 export class EmployeeService {
@@ -12,7 +13,7 @@ export class EmployeeService {
       });
    }
 
-   async getOne(id) {
+   async getOne(id: any) {
       return await this.connection.manager.findByIds(Employee, id, {
          relations: ['tasks'],
       });
@@ -35,7 +36,7 @@ export class EmployeeService {
          .execute();
    }
 
-   async deleteEmployee(id) {
+   async deleteEmployee(id: any) {
       return await this.connection.manager.delete(Employee, id);
    }
 }
