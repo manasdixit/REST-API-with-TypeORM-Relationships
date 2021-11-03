@@ -11,7 +11,7 @@ const typeOrmConfig: MysqlConnectionOptions = {
    username: 'root',
    password: 'manasdb123',
    database: 'db',
-   entities: [Employee, Company, Task],
+   entities: [Company, Employee, Task],
    synchronize: true,
 };
 

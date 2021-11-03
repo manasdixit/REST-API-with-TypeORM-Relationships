@@ -1,19 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { Task } from 'src/entities/task.entity';
 import { getConnection } from 'typeorm';
+// Creating branches
 
 @Injectable()
 export class TaskService {
    private readonly connection = getConnection('default');
 
    async getAll() {
-      return await this.connection.manager.find(Task, {
+      const tasks = await this.connection.manager.find(Task, {
          relations: ['employees'],
       });
+      return tasks;
    }
 
-   async getOne(id) {
-      return await this.connection.manager.findByIds(Task, id);
+   async getOne(id: any) {
+      const task = await this.connection.manager.findByIds(Task, id, {
+         relations: ['employees'],
+      });
+      return task;
    }
 
    async createTask(body) {
@@ -33,7 +38,7 @@ export class TaskService {
          .execute();
    }
 
-   async deleteTask(id) {
+   async deleteTask(id: any) {
       return this.connection.manager.delete(Task, { id });
    }
 }

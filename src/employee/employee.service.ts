@@ -7,15 +7,17 @@ export class EmployeeService {
    private readonly connection = getConnection('default');
 
    async getAll() {
-      return await this.connection.manager.find(Employee, {
+      const employees = await this.connection.manager.find(Employee, {
          relations: ['tasks'],
       });
+      return employees;
    }
 
-   async getOne(id) {
-      return await this.connection.manager.findByIds(Employee, id, {
+   async getOne(id: any) {
+      const employee = await this.connection.manager.findByIds(Employee, id, {
          relations: ['tasks'],
       });
+      return employee;
    }
 
    async createEmployee(body) {
@@ -35,7 +37,7 @@ export class EmployeeService {
          .execute();
    }
 
-   deleteEmployee(id) {
-      return this.connection.manager.delete(Employee, id);
+   async deleteEmployee(id: any) {
+      return await this.connection.manager.delete(Employee, id);
    }
 }
