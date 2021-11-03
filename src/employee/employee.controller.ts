@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Employee } from 'src/entities/employee.entity';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { EmployeeService } from './employee.service';
 
@@ -8,16 +9,19 @@ import { EmployeeService } from './employee.service';
 export class EmployeeController {
    constructor(private readonly employeeService: EmployeeService) {}
 
+   @ApiOkResponse({ type: Employee, isArray: true })
    @Get()
    getEmployees() {
       return this.employeeService.getAll();
    }
 
+   @ApiOkResponse({ type: Employee })
    @Get(':id')
    getEmployee(@Param('id') id: string) {
       return this.employeeService.getOne(id);
    }
 
+   @ApiCreatedResponse({ type: Employee })
    @Post()
    createEmployee(@Body() employee: CreateEmployeeDto) {
       if (this.employeeService.createEmployee(employee)) {

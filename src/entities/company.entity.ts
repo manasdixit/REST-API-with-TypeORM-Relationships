@@ -4,12 +4,15 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Company {
+   @ApiProperty()
    @PrimaryGeneratedColumn()
    id: number;
 
+   @ApiProperty()
    @Column()
    name: string;
 
+   @ApiProperty()
    @Column()
    activeEmployees: number;
 

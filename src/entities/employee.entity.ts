@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Company } from 'src/entities/company.entity';
 import { Task } from 'src/entities/task.entity';
 import {
@@ -10,18 +11,23 @@ import {
 
 @Entity()
 export class Employee {
+   @ApiProperty()
    @PrimaryGeneratedColumn()
    id: number;
 
+   @ApiProperty()
    @Column()
    name: string;
 
+   @ApiProperty()
    @Column()
    dob: Date;
 
+   @ApiProperty()
    @Column()
    sex: string;
 
+   @ApiProperty()
    @Column()
    address: string;
 

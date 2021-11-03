@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Task } from 'src/entities/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskService } from './task.service';
 
@@ -8,16 +9,19 @@ import { TaskService } from './task.service';
 export class TaskController {
    constructor(private readonly taskService: TaskService) {}
 
+   @ApiOkResponse({ type: Task, isArray: true })
    @Get()
    getTasks() {
       return this.taskService.getAll();
    }
 
+   @ApiOkResponse({ type: Task })
    @Get(':id')
    getTask(@Param('id') id: string) {
       return this.taskService.getOne(id);
    }
 
+   @ApiCreatedResponse({ type: Task })
    @Post()
    async createTask(@Body() task: CreateTaskDto) {
       if (this.taskService.createTask(task)) {
