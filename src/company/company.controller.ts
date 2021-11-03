@@ -1,17 +1,19 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { I_Company } from '../interfaces/company.interface';
 import { CompanyService } from './company.service';
 
+@ApiTags('COMPANY')
 @Controller('company')
 export class CompanyController {
    constructor(private readonly companyService: CompanyService) {}
    @Get()
-   async getCompanies() {
-      return await this.companyService.findAll();
+   getCompanies() {
+      return this.companyService.findAll();
    }
 
    @Get(':id')
-   getCompany(@Param('id') id) {
+   getCompany(@Param('id') id: string) {
       return this.companyService.findOne(id);
    }
 

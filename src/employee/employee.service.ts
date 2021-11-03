@@ -35,7 +35,7 @@ export class EmployeeService {
          .execute();
    }
 
-   deleteEmployee(id) {
-      return this.connection.manager.delete(Employee, id);
+   async deleteEmployee(id) {
+      return await this.connection.manager.delete(Employee, id);
    }
 }

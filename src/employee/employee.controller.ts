@@ -1,6 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { I_Employee } from '../interfaces/employee.interface';
 import { EmployeeService } from './employee.service';
+
+@ApiTags('EMPLOYEE')
 @Controller('employee')
 export class EmployeeController {
    constructor(private readonly employeeService: EmployeeService) {}

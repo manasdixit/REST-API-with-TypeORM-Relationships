@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Company } from 'src/entities/company.entity';
-import { getConnection } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 
 @Injectable()
 export class CompanyService {
    private readonly connection = getConnection('default');
-   findAll() {
-      return this.connection.manager.find(Company, {
+
+   // private readonly companyRepository = this.connection.getRepository(Company);
+
+   async findAll() {
+      return await this.connection.manager.find(Company, {
          relations: ['employees'],
       });
    }
